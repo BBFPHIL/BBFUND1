@@ -161,8 +161,6 @@ def holder_sheet():
         holderList.append(sh4.row_values(rownum))
     
     return holderList 
-    
-
 
 #Save information into new list
 holderNames = []
