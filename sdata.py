@@ -215,7 +215,7 @@ current month, and last month for each
 '''
 def analyst_sheet():
     
-    source = {}
+    source = {} ##########
 
     #number of current and last month recommendations of strong buy from analysts
     cur_mn_sb = sh6.cell(26,1)
