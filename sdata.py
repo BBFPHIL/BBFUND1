@@ -21,7 +21,7 @@ Open up all the approriate workbooks and sheets to create handles
 file = 'IncomeData3.xls'
 
 wb = xlrd.open_workbook(file)
-print "File opened! \n"
+#print "File opened! \n"
 
 #####Grab file sheets 1 - 7 ######
 sh1 = wb.sheet_by_name(u'Sheet1')#Grab sheet number 1 aka Income Statement
@@ -85,6 +85,9 @@ def balance_sheet():
     year2 = sh2.cell(49, 3)
     year3 = sh2.cell(49, 2)
     
+    main_asset = sh2.cell(20, 2)
+    main_liab = sh2.cell(35, 2)
+    
     #convert to string --> then strip junk --> convert to float
     year1 = str(year1) 
     year1 = year1.strip('number, :')
@@ -98,7 +101,17 @@ def balance_sheet():
     year3 = year3.strip('number, :')
     year3 = float(year3)
     
+    main_asset = str(main_asset)
+    main_asset = main_asset.strip('number, :')
+    main_asset = float(main_asset)
+    
+    main_liab = str(main_liab)
+    main_liab = main_liab.strip('number, :')
+    main_liab = float(main_liab)
+    
     source = {}
+    source["liab"] = main_liab
+    source["asset"] = main_asset
     source["year1"] = year1
     source["year2"] = year2
     source["year3"] = year3
@@ -108,7 +121,8 @@ def balance_sheet():
 #Save balance sheet years to global variable for testing purposes
 balanceYears = {}
 balanceYears = balance_sheet()
-print balanceYears["year1"]
+#print balanceYears["year1"]
+
 '''
 END OF Balance Sheet Statement extraction
 '''
@@ -145,7 +159,7 @@ def cashflow_sheet():
 #Save cashflow years to a global dictionary... example ofr actual program
 cashflowYears = {}
 cashflowYears = cashflow_sheet()
-print cashflowYears["year1"]
+#print cashflowYears["year1"]
 
 '''
 END OF CASH FLOW SHEET EXTRACTION
@@ -160,12 +174,12 @@ def holder_sheet():
     for rownum in range(sh4.nrows):
         holderList.append(sh4.row_values(rownum))
     
-    return holderList 
+    return holderList[8:-1] 
 
 #Save information into new list
 holderNames = []
 holderNames = holder_sheet()
-print holderNames[8:-1]
+#print holderNames[8:-1]
 
 '''
 END of extracting major holder information
@@ -180,7 +194,7 @@ def insider_sheet():
     for rownum in range(sh5.nrows):
         insiderList.append(sh5.row_values(rownum))
     
-    return insiderList
+    return insiderList[2:-1]
 
 '''
 Note: The item of sale or buy is located in the fifth item of the sublist
@@ -189,7 +203,7 @@ Note: The item of sale or buy is located in the fifth item of the sublist
 #Place insider list inside of a new list
 insiderNames = []
 insiderNames = insider_sheet()
-print insiderNames
+#print insiderNames
 
 '''
 END OF EXTRACTING INSIDER SALES AND BUYS
@@ -202,7 +216,7 @@ current month, and last month for each
 def analyst_sheet():
     
     source = {}
-    
+
     #number of current and last month recommendations of strong buy from analysts
     cur_mn_sb = sh6.cell(26,1)
     lst_mn_sb = sh6.cell(26,2)
@@ -276,43 +290,5 @@ analystData = analyst_sheet()
 END OF EXTRACTING ANALYST DATA 
 '''
 ###############################
-'''
-Begin extracting key statistics
-'''
 
-'''
-def get_profitmargin():
-    
-    pm = sh7.cell(16, 1)
-    
-    #convert to str --> float
-    pm = str(pm) 
-    pm = pm.strip('number, :')
-    pm = float(pm)
-
-    
-    return pm
-
-profitMargin = get_profitmargin()
-print profitMargin
-    
-    
-def get_qtr_growth():
-
-    qtr_growth = sh7.cell(24, 1)
-
-    return qtr_growth
-
-q = get_qtr_growth()
-print q
-'''
-print "Successful!! \n"
-
-
-
-
-
-
-#####collect all excel data into dictionary for querying later####
-#data = collectAllDataList(sh)
 

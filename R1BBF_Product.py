@@ -4,24 +4,20 @@ import os
 import sys
 import urllib
 import re
-#sys.path.append('/Users/pwalker/BBF_PROP_ALGOS/FINAL_PRODUCT_ALGOS/')
 import yqldata
 import rm1
 
 
-'''                                                                                                                                                                        
-APPLICATION BEGINS HERE                                                                                                                                                    
-                                                                                                                                                                           
-5/16/2012                                                                                                                                                                  
-                                                                                                                                                                           
-Research 1 Algorithm (aka "R1BBF")'s Goal:                                                                                                                                 
-To screen and weed out equities that are initially attractive for event arbitrage                                                                                          
-and under valued plays, and special events.                                                                                                                                
-                                                                                                                                                                           
 '''
-
-
-# Testing getting 1 year target                                                                                                                                            
+Version 1.1
+R1BBF Characteristics of an Attractive Investment
+Name: R1BBF Algo (Research Algorithm 2)
+Type: Fundamental Research Algorithm
+Goal: Filter entire stock exchanges for stocks that fit our specific investment model
+Expected Mortality Rate: 50-60 symbols (2%)
+*This algorithm evolves as the assets under management fluctuate. i.e. if fund grows to
+$10,000 AUM, then price may be < $20.00 for investment.*
+'''
 
 
 data = []
@@ -30,7 +26,7 @@ c = 0
 
 #print data[:-1] debugging                                                                                                         
 dataQueryList = []
-dataQueryList = data[:50] #Set this variable as you see fit                                                                                                               
+dataQueryList = data[:500] #Set this variable as you see fit                                                                                                               
 #print dataQueryList
 
 #for sym in dataQueryList[:-1]:  #######Testing only first two for time's sake and server capabilities####### MANUAL MAINTENANCE ######                                     
@@ -57,13 +53,14 @@ for num, sym in enumerate(dataQueryList[:-1]): #Enumerate is more efficient
     print pe, " pe \n"                                                                                                                                                     
     print eps, " eps\n"                                                                                                                                                    
     print short_ratio, "\n"                                                                                                                                                
-    '''
+    
 
     #Begin filtering process                                                                                                                                               
     #print sym["symbol"], "\n"                                                                                                                                             
     #Filter 1 .. find all appropriately priced stocks under 10.00                                                                                                          
     #For farther examination                                                                                                                                               
     #print price_req(price), "\n"                                                                                                                                          
+    '''
 
     if rm1.price_req(price) == False:
         dataQueryList.pop(c)
